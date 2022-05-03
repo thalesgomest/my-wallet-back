@@ -1,0 +1,6 @@
+# dependencies
+/node_modules
+
+# others
+projeto13-mywallet-back.wakatime-project
+.env
