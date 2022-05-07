@@ -1,6 +1,8 @@
+import db from './../db.js';
+
 export default async function tokenValidate(req, res, next) {
     const { authorization } = req.headers;
-    const token = authorization?.replace('Bearer ', '');
+    const token = authorization?.replace('Bearer ', '').trim();
 
     if (!token) {
         return res.status(401).send('Unauthorized');
@@ -18,6 +20,7 @@ export default async function tokenValidate(req, res, next) {
         if (!user) {
             return res.sendStatus(401);
         }
+        delete user.password;
         res.locals.user = user;
     } catch (e) {
         return res.status(500).send('error while validating token');

@@ -16,7 +16,7 @@ export async function signIn(req, res) {
                 token,
                 lastStatus: Date.now(),
             });
-            res.status(200).send({ token });
+            res.status(200).send({ name: user.name, token });
         } else {
             res.status(401).send({ message: 'Invalid email or password' });
         }
@@ -41,6 +41,22 @@ export async function signUp(req, res) {
             .collection('users')
             .insertOne({ name, email, password: passwordHash });
         res.status(200).send({ message: 'User created successfully' });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export async function logOut(req, res) {
+    const { authorization } = req.headers;
+    const token = authorization?.replace('Bearer ', '').trim();
+
+    if (!token) {
+        return res.status(401).send('Unauthorized');
+    }
+
+    try {
+        await db.collection('sessions').deleteOne({ token });
+        res.status(200).send('Logged out');
     } catch (err) {
         console.log(err);
     }

@@ -4,11 +4,28 @@ import db from './../db.js';
 dotenv.config();
 
 export async function getRegisters(req, res) {
-    const { user } = req.locals;
+    const { user } = res.locals;
 
     const registers = await db
         .collection('registers')
         .find({ userId: user._id })
         .toArray();
-    res.send(registers);
+
+    registers.forEach((register) => delete register.userId);
+    res.send({ registers });
+}
+
+export async function postRegister(req, res) {
+    const register = req.body;
+    const { user } = res.locals;
+
+    try {
+        await db.collection('registers').insertOne({
+            ...register,
+            userId: user._id,
+        });
+        res.sendStatus(200);
+    } catch (error) {
+        res.status(500).send('error while inserting register');
+    }
 }
