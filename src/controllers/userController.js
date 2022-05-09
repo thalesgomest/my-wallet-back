@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import db from './../db.js';
 import { ObjectId } from 'mongodb';
-
 dotenv.config();
 
 export async function getRegisters(req, res) {
