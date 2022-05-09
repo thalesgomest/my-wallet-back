@@ -41,3 +41,20 @@ export async function deleteRegister(req, res) {
         return res.status(500).send(error);
     }
 }
+
+export async function updateRegister(req, res) {
+    const { id } = req.params;
+    const { value, description, date, type } = req.body;
+
+    try {
+        await db.collection('registers').updateOne(
+            { _id: new ObjectId(id) },
+            {
+                $set: { value, description, date, type },
+            }
+        );
+        return res.status(200).send('Register updated');
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}

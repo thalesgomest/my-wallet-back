@@ -9,7 +9,7 @@ export default async function registerExistValidate(req, res, next) {
             _id: new ObjectId(id),
         });
         if (!register) {
-            return res.status(400).send('Transaction does not exist');
+            return res.status(400).send('Register does not exist');
         }
     } catch (error) {
         return res.status(500).send(error);
