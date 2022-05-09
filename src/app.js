@@ -15,7 +15,7 @@ dotenv.config();
 app.use(authRouter);
 app.use(userRouter);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 app.listen(port, () => {
     console.log(chalk.bold.green(`Server running on port ${port}`));
 });
