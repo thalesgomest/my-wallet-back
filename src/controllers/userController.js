@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import db from './../db.js';
+import { ObjectId } from 'mongodb';
 
 dotenv.config();
 
@@ -12,7 +13,7 @@ export async function getRegisters(req, res) {
         .toArray();
 
     registers.forEach((register) => delete register.userId);
-    res.send({ registers });
+    res.send(registers);
 }
 
 export async function postRegister(req, res) {
@@ -27,5 +28,16 @@ export async function postRegister(req, res) {
         res.sendStatus(200);
     } catch (error) {
         res.status(500).send('error while inserting register');
+    }
+}
+
+export async function deleteRegister(req, res) {
+    const { id } = req.params;
+
+    try {
+        await db.collection('registers').deleteOne({ _id: new ObjectId(id) });
+        return res.status(200).send('Transaction deleted');
+    } catch (error) {
+        return res.status(500).send(error);
     }
 }
