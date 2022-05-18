@@ -20,7 +20,7 @@
 
 
 ## Project Description
-<p align="justify">This project is the front-end of my first project fullstack. MyWallet is a simple finance app, where you can register yours financial incomings and outgoings daily, 
+<p align="justify">This project is the back-end of my first project fullstack. MyWallet is a simple finance app, where you can register yours financial incomings and outgoings daily, 
 and see your balance. All datas are editable and they can be deleted too</p>
 
 ## Status
